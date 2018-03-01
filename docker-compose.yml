@@ -4,16 +4,15 @@ services:
     build: monitored-geth-client
     restart: on-failure
     container_name: bootstrap
-    hostname: bootstrap
+    hostname: alexnode
     links:
       - netstats
     entrypoint: /root/start.sh
-    command: '--datadir=~/.ethereum/devchain --unlock "0xcd2051a37cdc02db5da21d61415de21af4058a5e" --password /root/files/password/password --rpcapi "db,personal,eth,net,web3" --rpccorsdomain="*" --networkid=5555 --rpc --rpcaddr="0.0.0.0"'
+    command: '--datadir=~/.ethereum/devchain --unlock "0xcd2051a37cdc02db5da21d61415de21af4058a5e" --password /root/files/password --rpcapi "db,personal,eth,net,web3" --rpccorsdomain="*" --networkid=5555 --rpc --rpcaddr="0.0.0.0"'
     volumes:
       - ./files/password:/root/files/password:ro
       - ./files/genesis.json:/root/files/genesis.json:ro
       - ./files/keystore:/root/.ethereum/devchain/keystore:rw
-      - ./files/static-nodes.json:/root/.ethereum/devchain/static-nodes.json
       - ~/etc/localtime:/etc/localtime:ro
     ports:
       - "30303:30303"
@@ -22,6 +21,7 @@ services:
   eth:
     build: monitored-geth-client
     restart: on-failure
+    hostname: alexothernode
     links:
       - bootstrap
       - netstats
@@ -30,9 +30,8 @@ services:
       - ./files/password:/root/files/password:ro
       - ./files/genesis.json:/root/files/genesis.json:ro
       - ./files/keystore:/root/.ethereum/devchain/keystore:rw
-      - ./files/static-nodes.json:/root/.ethereum/devchain/static-nodes.json
       - ~/etc/localtime:/etc/localtime:ro
-    command: '--datadir=~/.ethereum/devchain --unlock "0xcd2051a37cdc02db5da21d61415de21af4058a5e" --password /root/files/password/password --rpccorsdomain="*" --networkid=5555 --rpc'
+    command: '--datadir=~/.ethereum/devchain --unlock "0xcd2051a37cdc02db5da21d61415de21af4058a5e" --password /root/files/password --rpccorsdomain="*" --networkid=5555 --rpc'
   netstats:
     build: eth-netstats
     restart: on-failure
@@ -42,4 +41,4 @@ services:
     volumes:
       - ~/etc/localtime:/etc/localtime:ro
     ports:
-      - "3000:3000"
+      - "80:3000"

@@ -15,8 +15,8 @@
       "RPC_PORT"        : "8545",
       "LISTENING_PORT"  : "30303",
       "INSTANCE_NAME"   : "XXX",
-      "WS_SERVER"       : "ws://netstats:3000",
-      "WS_SECRET"       : "eth-net-stats-secret",
+      "WS_SERVER"       : "ws://dashboard.landchain.com.au:80",
+      "WS_SECRET"       : "12345",
       "VERBOSITY"       : 2
     }
   }
