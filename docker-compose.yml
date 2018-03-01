@@ -13,6 +13,7 @@ services:
       - ./files/password:/root/files/password:ro
       - ./files/genesis.json:/root/files/genesis.json:ro
       - ./files/keystore:/root/.ethereum/devchain/keystore:rw
+      - ./files/static-nodes.json:/root/.ethereum/devchain/static-nodes.json
       - ~/etc/localtime:/etc/localtime:ro
     ports:
       - "30303:30303"
@@ -30,6 +31,7 @@ services:
       - ./files/password:/root/files/password:ro
       - ./files/genesis.json:/root/files/genesis.json:ro
       - ./files/keystore:/root/.ethereum/devchain/keystore:rw
+      - ./files/static-nodes.json:/root/.ethereum/devchain/static-nodes.json
       - ~/etc/localtime:/etc/localtime:ro
     command: '--datadir=~/.ethereum/devchain --unlock "0xcd2051a37cdc02db5da21d61415de21af4058a5e" --password /root/files/password --rpccorsdomain="*" --networkid=5555 --rpc'
   netstats:
